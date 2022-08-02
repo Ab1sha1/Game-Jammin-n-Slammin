@@ -22,6 +22,8 @@ public class playerMovement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime;
 
+    public float health;
+
    // public Animator anim;
 
 
@@ -88,6 +90,20 @@ public class playerMovement : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "enemy") 
+        {
+            
+            GotHit();
+        }
+    }
+
+    void GotHit() 
+    {
+        health -= 1f; 
     }
 
     void Flip()
