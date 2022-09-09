@@ -12,6 +12,7 @@ public class zombieAI : MonoBehaviour
     public Transform groundCheckPos;
     public float groundCheckRange;
     public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     public float damage;
 
@@ -30,7 +31,16 @@ public class zombieAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, groundLayer);
+        if (!Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, groundLayer) || Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, wallLayer)) 
+        {
+            mustTurn = true;
+        }
+        else 
+        {
+            mustTurn = false;
+        }
+
+
     }
 
     void Patrol() 

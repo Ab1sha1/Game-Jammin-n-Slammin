@@ -3159,6 +3159,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   damage: 1
 --- !u!61 &1584942528
 BoxCollider2D:
@@ -3194,7 +3197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584942525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.66, y: 0.38, z: -2.5762317}
+  m_LocalPosition: {x: 5.66, y: 0.39, z: -2.5762317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
