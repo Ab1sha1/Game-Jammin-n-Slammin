@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 660285623}
   m_Layer: 6
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2139,6 +2139,7 @@ MonoBehaviour:
     m_Bits: 8
   jumpTime: 0.4
   health: 3
+  wallJumpForce: 0
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

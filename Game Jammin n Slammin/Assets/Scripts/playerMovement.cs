@@ -23,6 +23,7 @@ public class playerMovement : MonoBehaviour
     public float jumpTime;
 
     public float health;
+    public float wallJumpForce;
 
    // public Animator anim;
 
@@ -99,6 +100,11 @@ public class playerMovement : MonoBehaviour
             
             GotHit();
         }
+        if (collision.gameObject.tag == "Walls" && isGrounded == false)
+        {
+            print("jerry");
+            rb.velocity = Vector2.left * 2;
+        }
     }
 
     void GotHit() 
@@ -112,4 +118,15 @@ public class playerMovement : MonoBehaviour
 
         transform.Rotate(0f, 180, 0f);
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+      //  if (collision.gameObject.tag == "Walls" && Input.GetKeyDown(KeyCode.Space))
+      //  {
+       //     
+       //     print("jerry2");
+       //     rb.velocity = Vector2.left * jumpHeight;
+       // }
+    }
+    
+
 }
