@@ -24,7 +24,9 @@ public class playerMovement : MonoBehaviour
 
     public float health;
     public float wallJumpForce;
-
+    public float canMove = 1;
+    public bool canWallJump;
+    public float wallJumpDirection;
    // public Animator anim;
 
 
@@ -74,6 +76,14 @@ public class playerMovement : MonoBehaviour
         {
             //anim.SetBool("isJumping", true);
         }
+        if (facingRight == true)
+        {
+            wallJumpDirection = 1;
+        }
+        else
+        {
+            wallJumpDirection = -1;
+        }
     }
 
     private void FixedUpdate()
@@ -81,15 +91,23 @@ public class playerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
         moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
 
-        if (facingRight == false && moveInput > 0)
+        if (facingRight == false && moveInput > 0 && canWallJump == false)
         {
             Flip();
         }
-        else if (facingRight == true && moveInput < 0)
+        else if (facingRight == true && moveInput < 0 && canWallJump == false)
         {
             Flip();
+        }
+        if (canWallJump == true && Input.GetKey(KeyCode.Space))
+        {
+             rb.velocity = new Vector2(50 * wallJumpDirection, 10);
+          //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
+            canWallJump = false;
+            rb.isKinematic = false;
+            canMove = 1;
         }
     }
 
@@ -103,7 +121,12 @@ public class playerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Walls" && isGrounded == false)
         {
             print("jerry");
-            rb.velocity = Vector2.left * 2;
+            canMove = 0;
+            rb.isKinematic = true;
+            canWallJump = true;
+            rb.velocity = rb.velocity * 0;
+            Flip();
+            
         }
     }
 
