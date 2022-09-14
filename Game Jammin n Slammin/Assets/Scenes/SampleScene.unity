@@ -885,6 +885,9 @@ MonoBehaviour:
   jumpTime: 0.4
   health: 3
   wallJumpForce: 0
+  canMove: 1
+  canWallJump: 0
+  wallJumpDirection: 0
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2473,7 +2476,7 @@ GameObject:
   - component: {fileID: 1399321261}
   m_Layer: 6
   m_Name: Tilemap_Base_Walls
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
