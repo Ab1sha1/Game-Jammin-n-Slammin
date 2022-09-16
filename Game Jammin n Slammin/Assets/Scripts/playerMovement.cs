@@ -27,15 +27,15 @@ public class playerMovement : MonoBehaviour
     public float canMove = 1;
     public bool canWallJump;
     public float wallJumpDirection;
-   // public Animator anim;
+    // public Animator anim;
 
 
 
-   // public AudioSource[] playerSounds;
+    // public AudioSource[] playerSounds;
 
     void Start()
     {
-       // anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
     }
@@ -44,8 +44,8 @@ public class playerMovement : MonoBehaviour
     {
         if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
-           // playerSounds[0].Play();
-           // anim.SetTrigger("takeOff");
+            // playerSounds[0].Play();
+            // anim.SetTrigger("takeOff");
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = Vector2.up * jumpHeight;
@@ -70,7 +70,7 @@ public class playerMovement : MonoBehaviour
         }
         if (isGrounded == true)
         {
-           // anim.SetBool("isJumping", false);
+            // anim.SetBool("isJumping", false);
         }
         else
         {
@@ -103,8 +103,8 @@ public class playerMovement : MonoBehaviour
         }
         if (canWallJump == true && Input.GetKey(KeyCode.Space))
         {
-             rb.velocity = new Vector2(50 * wallJumpDirection, 10);
-          //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
+            rb.velocity = new Vector2(50 * wallJumpDirection, 10);
+            //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
             canWallJump = false;
             rb.isKinematic = false;
             canMove = 1;
@@ -113,9 +113,9 @@ public class playerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "enemy") 
+        if (collision.gameObject.tag == "enemy")
         {
-            
+
             GotHit();
         }
         if (collision.gameObject.tag == "Walls" && isGrounded == false)
@@ -126,13 +126,13 @@ public class playerMovement : MonoBehaviour
             canWallJump = true;
             rb.velocity = rb.velocity * 0;
             Flip();
-            
+
         }
     }
 
-    void GotHit() 
+    void GotHit()
     {
-        health -= 1f; 
+        health -= 1f;
     }
 
     void Flip()
@@ -143,13 +143,14 @@ public class playerMovement : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-      //  if (collision.gameObject.tag == "Walls" && Input.GetKeyDown(KeyCode.Space))
-      //  {
-       //     
-       //     print("jerry2");
-       //     rb.velocity = Vector2.left * jumpHeight;
-       // }
+        //  if (collision.gameObject.tag == "Walls" && Input.GetKeyDown(KeyCode.Space))
+        //  {
+        //     
+        //     print("jerry2");
+        //     rb.velocity = Vector2.left * jumpHeight;
+        // }
     }
-    
+
 
 }
+
