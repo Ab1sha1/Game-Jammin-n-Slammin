@@ -23,6 +23,8 @@ public class playerMovement : MonoBehaviour
     public float jumpTime;
 
     public float health;
+
+    
     public float wallJumpForce;
     public float canMove = 1;
     public bool canWallJump;
@@ -30,8 +32,9 @@ public class playerMovement : MonoBehaviour
     // public Animator anim;
 
 
-
     // public AudioSource[] playerSounds;
+
+    public Vector2 latevelocity;
 
     void Start()
     {
@@ -106,9 +109,13 @@ public class playerMovement : MonoBehaviour
             rb.velocity = new Vector2(50 * wallJumpDirection, 10);
             //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
             canWallJump = false;
-            rb.isKinematic = false;
             canMove = 1;
         }
+    }
+
+    public void LateUpdate()
+    {
+       // latevelocity = rb.velocity.
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -122,7 +129,6 @@ public class playerMovement : MonoBehaviour
         {
             print("jerry");
             canMove = 0;
-            rb.isKinematic = true;
             canWallJump = true;
             rb.velocity = rb.velocity * 0;
             Flip();

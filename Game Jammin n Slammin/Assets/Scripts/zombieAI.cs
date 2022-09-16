@@ -27,18 +27,20 @@ public class zombieAI : MonoBehaviour
         {
             Patrol();
         }
+
+        if (!Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, groundLayer) || Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, wallLayer))
+        {
+            mustTurn = true;
+        }
+        else
+        {
+            mustTurn = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (!Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, groundLayer) || Physics2D.OverlapCircle(groundCheckPos.position, groundCheckRange, wallLayer)) 
-        {
-            mustTurn = true;
-        }
-        else 
-        {
-            mustTurn = false;
-        }
+        
 
 
     }
