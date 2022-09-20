@@ -870,7 +870,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780175955}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf0c86c81967a5f45add6219131bc723, type: 3}
   m_Name: 
@@ -888,6 +888,7 @@ MonoBehaviour:
   canMove: 1
   canWallJump: 0
   wallJumpDirection: 0
+  latevelocity: {x: 0, y: 0}
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -6616,7 +6617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717453010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: -0.81, z: 0}
+  m_LocalPosition: {x: 0.62, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
