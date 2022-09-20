@@ -22,8 +22,6 @@ public class playerMovement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime;
 
-    public float health;
-
     
     public float wallJumpForce;
     public float canMove = 1;
@@ -120,11 +118,6 @@ public class playerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
-        {
-
-            GotHit();
-        }
         if (collision.gameObject.tag == "Walls" && isGrounded == false)
         {
             print("jerry");
@@ -136,10 +129,7 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    void GotHit()
-    {
-        health -= 1f;
-    }
+   
 
     void Flip()
     {
