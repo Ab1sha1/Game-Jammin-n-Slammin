@@ -27,7 +27,6 @@ public class playerMovement : MonoBehaviour
     public float canMove = 1;
     public bool canWallJump;
     public float wallJumpDirection;
-    public float wallJumpTimer;
     // public Animator anim;
 
 
@@ -92,12 +91,8 @@ public class playerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if(wallJumpTimer > 0.5)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
-        }
-        
+        moveInput = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
 
         if (facingRight == false && moveInput > 0 && canWallJump == false)
         {
@@ -109,13 +104,11 @@ public class playerMovement : MonoBehaviour
         }
         if (canWallJump == true && Input.GetKey(KeyCode.Space))
         {
-            rb.velocity = new Vector2(wallJumpForce * wallJumpDirection, jumpHeight);
+            rb.velocity = new Vector2(50 * wallJumpDirection, 10);
             //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
             canWallJump = false;
             canMove = 1;
-            wallJumpTimer = 0;
         }
-        wallJumpTimer = wallJumpTimer + Time.deltaTime;
     }
 
     public void LateUpdate()
