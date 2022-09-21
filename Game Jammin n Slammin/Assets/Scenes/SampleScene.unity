@@ -883,10 +883,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpTime: 0.4
-  wallJumpForce: 0
+  wallJumpForce: 10
   canMove: 1
   canWallJump: 0
   wallJumpDirection: 0
+  wallJumpTimer: 0
   latevelocity: {x: 0, y: 0}
 --- !u!70 &780175960
 CapsuleCollider2D:
@@ -938,6 +939,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+  knockbackForce: 0
   health: 3
 --- !u!1 &879602239
 GameObject:

@@ -22,11 +22,12 @@ public class playerMovement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime;
 
-    
+
     public float wallJumpForce;
     public float canMove = 1;
     public bool canWallJump;
     public float wallJumpDirection;
+    public float wallJumpTimer;
     // public Animator anim;
 
 
@@ -91,8 +92,12 @@ public class playerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
+        if (wallJumpTimer > 0.5)
+        {
+            moveInput = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
+        }
+
 
         if (facingRight == false && moveInput > 0 && canWallJump == false)
         {
@@ -104,20 +109,23 @@ public class playerMovement : MonoBehaviour
         }
         if (canWallJump == true && Input.GetKey(KeyCode.Space))
         {
-            rb.velocity = new Vector2(50 * wallJumpDirection, 10);
+            rb.velocity = new Vector2(wallJumpForce * wallJumpDirection, jumpHeight);
             //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
             canWallJump = false;
             canMove = 1;
+            wallJumpTimer = 0;
         }
+        wallJumpTimer = wallJumpTimer + Time.deltaTime;
     }
 
     public void LateUpdate()
     {
-       // latevelocity = rb.velocity.
+        // latevelocity = rb.velocity.
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+       
         if (collision.gameObject.tag == "Walls" && isGrounded == false)
         {
             print("jerry");
@@ -129,13 +137,15 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-   
-
     void Flip()
     {
         facingRight = !facingRight;
 
         transform.Rotate(0f, 180, 0f);
+        if(wallJumpTimer > 0) 
+        {
+            wallJumpTimer = 5;
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
