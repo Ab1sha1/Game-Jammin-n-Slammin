@@ -939,7 +939,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  knockbackForce: 0
+  knockbackForce: 5
   health: 3
 --- !u!1 &879602239
 GameObject:
