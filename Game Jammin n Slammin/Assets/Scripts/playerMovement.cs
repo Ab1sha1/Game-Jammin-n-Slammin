@@ -28,6 +28,7 @@ public class playerMovement : MonoBehaviour
     public bool canWallJump;
     public float wallJumpDirection;
     public float wallJumpTimer;
+    public float wallTime;
     // public Animator anim;
 
 
@@ -92,7 +93,7 @@ public class playerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if (wallJumpTimer > 0.5)
+        if (wallJumpTimer > wallTime)
         {
             moveInput = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
