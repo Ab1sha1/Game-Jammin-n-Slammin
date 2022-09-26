@@ -93,11 +93,7 @@ public class playerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if (wallJumpTimer > wallTime)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
-        }
+
 
 
         if (facingRight == false && moveInput > 0 && canWallJump == false)
@@ -108,6 +104,12 @@ public class playerMovement : MonoBehaviour
         {
             Flip();
         }
+        if (wallJumpTimer > wallTime)
+        {
+            moveInput = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
+        }
+
         if (canWallJump == true && Input.GetKey(KeyCode.Space))
         {
             rb.velocity = new Vector2(wallJumpForce * wallJumpDirection, jumpHeight);
