@@ -22,6 +22,8 @@ public class playerMovement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime;
 
+    private bool isClimb;
+
 
     public float wallJumpForce;
     public float canMove = 1;
@@ -46,6 +48,8 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
+        
+
         if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             // playerSounds[0].Play();
@@ -80,6 +84,8 @@ public class playerMovement : MonoBehaviour
         {
             //anim.SetBool("isJumping", true);
         }
+
+
         if (facingRight == true)
         {
             wallJumpDirection = 1;
@@ -88,6 +94,8 @@ public class playerMovement : MonoBehaviour
         {
             wallJumpDirection = -1;
         }
+
+
         if(Input.GetKeyDown("z"))
         {
             swordMR.enabled = true;
@@ -149,7 +157,25 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    void Flip()
+     void climbJump() 
+    {
+        
+    }
+
+        void jumpControl() 
+    {
+        if (!Input.GetButtonDown("Jump")) 
+        {
+            return;
+        }
+
+        if (isClimb) 
+        {
+            climbJump();
+        } 
+    }
+
+        void Flip()
     {
         facingRight = !facingRight;
 
