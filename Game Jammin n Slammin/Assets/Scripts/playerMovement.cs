@@ -29,6 +29,7 @@ public class playerMovement : MonoBehaviour
     public float wallJumpDirection;
     public float wallJumpTimer;
     public float wallTime;
+    public MeshRenderer swordMR;
     // public Animator anim;
 
 
@@ -87,13 +88,27 @@ public class playerMovement : MonoBehaviour
         {
             wallJumpDirection = -1;
         }
+        if(Input.GetKeyDown("z"))
+        {
+            swordMR.enabled = true;
+            
+        }
+        if(Input.GetKeyUp("z"))
+        {
+            swordMR.enabled = false;
+            
+        }
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-
+        if (wallJumpTimer > wallTime)
+        {
+            moveInput = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
+        }
 
 
         if (facingRight == false && moveInput > 0 && canWallJump == false)
@@ -104,12 +119,6 @@ public class playerMovement : MonoBehaviour
         {
             Flip();
         }
-        if (wallJumpTimer > wallTime)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * speed * canMove, rb.velocity.y);
-        }
-
         if (canWallJump == true && Input.GetKey(KeyCode.Space))
         {
             rb.velocity = new Vector2(wallJumpForce * wallJumpDirection, jumpHeight);
@@ -131,7 +140,7 @@ public class playerMovement : MonoBehaviour
        
         if (collision.gameObject.tag == "Walls" && isGrounded == false)
         {
-            print("jerry");
+            
             canMove = 0;
             canWallJump = true;
             rb.velocity = rb.velocity * 0;
@@ -159,6 +168,7 @@ public class playerMovement : MonoBehaviour
         //     rb.velocity = Vector2.left * jumpHeight;
         // }
     }
+
 
 
 }
