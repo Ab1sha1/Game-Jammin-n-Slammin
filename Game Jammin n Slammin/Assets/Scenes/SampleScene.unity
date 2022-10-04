@@ -813,7 +813,6 @@ GameObject:
   m_Component:
   - component: {fileID: 780175958}
   - component: {fileID: 780175956}
-  - component: {fileID: 780175962}
   - component: {fileID: 780175959}
   - component: {fileID: 780175961}
   - component: {fileID: 780175960}
@@ -876,22 +875,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0c86c81967a5f45add6219131bc723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpHeight: 8
-  groundCheck: {fileID: 1594404687}
-  checkRadius: 0.1
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  jumpTime: 0.4
-  wallJumpForce: 10
-  canMove: 1
-  canWallJump: 0
-  wallJumpDirection: 0
-  wallJumpTimer: 0
-  wallTime: 0.5
-  swordMR: {fileID: 1095107281}
-  latevelocity: {x: 0, y: 0}
+  health: 3
+  moveSpeed: 2
+  jumpSpeed: 2
+  jumpLeft: 2
+  climbJumpForce: {x: 1, y: 1}
+  fallSpeed: 1
+  sprintSpeed: 1
+  sprintTime: 1
+  sprintInterval: 1
+  attackInterval: 1
+  invulColor: {r: 1, g: 1, b: 1, a: 0}
+  hurtRecoil: {x: 1, y: 1}
+  hurtTime: 1
+  hurtRecoverTime: 1
+  deathRecoil: 1
+  deathDelay: 1
+  attackUpRecoil: {x: 0, y: 0}
+  attackForwardRecoil: {x: 1, y: 1}
+  attackDownRecoil: {x: 0, y: 0}
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -924,26 +926,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0014636517, y: -0.1204561}
   m_Size: {x: 0.9310031, y: 2.021599}
   m_Direction: 0
---- !u!114 &780175962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780175955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bf4466983480941a0f78f84ae0aad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  attackPoint: {fileID: 1563920182}
-  attackRange: 0.6
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  knockbackForce: 5
-  health: 3
 --- !u!1 &879602239
 GameObject:
   m_ObjectHideFlags: 0
@@ -6779,14 +6761,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 200
   mustPatrol: 0
+  mustTurn: 0
   rb: {fileID: 1584942526}
   groundCheckPos: {fileID: 1717453011}
   groundCheckRange: 0.1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
   wallLayer:
-    serializedVersion: 2
     m_Bits: 64
   damage: 1
 --- !u!61 &1584942528
