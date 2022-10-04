@@ -858,10 +858,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 5
-  jumpSpeed: 5
-  jumpLeft: 2
-  climbJumpForce: {x: 1, y: 1}
-  fallSpeed: 1
+  jumpSpeed: 15
+  jumpLeft: 1
+  climbJumpForce: {x: 5, y: 5}
+  fallSpeed: 0.5
   sprintSpeed: 1
   sprintTime: 1
   sprintInterval: 1
@@ -6812,17 +6812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc30059da689ab54789efca9c6fad129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
-  mustPatrol: 0
-  mustTurn: 0
-  rb: {fileID: 1584942526}
-  groundCheckPos: {fileID: 1717453011}
-  groundCheckRange: 0.1
-  groundLayer:
-    m_Bits: 8
-  wallLayer:
-    m_Bits: 64
-  damage: 1
 --- !u!61 &1584942528
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
+    //https://github.com/DanielDFY/Hollow-Knight-Imitation
+    //Script Created by DanielDFY
+
     public int health;
     public float moveSpeed;
     public float jumpSpeed;
@@ -94,7 +98,7 @@ public class playerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // enter climb state
-        if (collision.collider.tag == "Wall" && !_isGrounded)
+        if (collision.collider.tag == "Walls" && !_isGrounded)
         {
             _rb.gravityScale = 0;
 
@@ -113,7 +117,7 @@ public class playerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Wall" && _isFalling && !_isClimb)
+        if (collision.collider.tag == "Walls" && _isFalling && !_isClimb)
         {
             OnCollisionEnter2D(collision);
         }
@@ -166,7 +170,7 @@ public class playerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         // exit climb state
-        if (collision.collider.tag == "Wall")
+        if (collision.collider.tag == "Walls")
         {
             _isClimb = false;
             _anim.SetBool("IsClimb", false);
@@ -192,7 +196,7 @@ public class playerController : MonoBehaviour
             _anim.ResetTrigger("IsJumpSecond");
             _anim.SetBool("IsDown", false);
 
-            jumpLeft = 2;
+            jumpLeft = 1;
             _isClimb = false;
             _isSprintable = true;
         }
@@ -344,20 +348,24 @@ public class playerController : MonoBehaviour
         direction.x = 0;
         direction.y = -1;
 
-        float distance = 0.5f;
+        float distance = 1f;
         LayerMask layerMask = LayerMask.GetMask("Ground");
 
         RaycastHit2D hitRec = Physics2D.CircleCast(origin, radius, direction, distance, layerMask);
-        //Debug.DrawLine(origin, distance);
         return hitRec.collider != null;
       
     }
     private void OnDrawGizmos()
     {
         Vector2 origin = this.transform.position;
+        Vector2 direction;
+        direction.x = 0;
+        direction.y = -1;
+
+        float distance = 1f;
 
         float radius = 0.2f;
-        Gizmos.DrawWireSphere(origin, radius);
+        Gizmos.DrawWireSphere(origin + (direction * distance), radius);
     }
 
     private void jump()
