@@ -345,7 +345,7 @@ public class playerController : MonoBehaviour
         direction.y = -1;
 
         float distance = 0.5f;
-        LayerMask layerMask = LayerMask.GetMask("Platform");
+        LayerMask layerMask = LayerMask.GetMask("Ground");
 
         RaycastHit2D hitRec = Physics2D.CircleCast(origin, radius, direction, distance, layerMask);
         //Debug.DrawLine(origin, distance);
