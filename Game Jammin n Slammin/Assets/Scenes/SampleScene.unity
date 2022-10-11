@@ -859,7 +859,6 @@ MonoBehaviour:
   health: 3
   moveSpeed: 5
   jumpSpeed: 15
-  jumpLeft: 1
   climbJumpForce: {x: 5, y: 5}
   fallSpeed: 0.5
   sprintSpeed: 1
@@ -875,6 +874,7 @@ MonoBehaviour:
   attackUpRecoil: {x: 0, y: 0}
   attackForwardRecoil: {x: 1, y: 1}
   attackDownRecoil: {x: 0, y: 0}
+  _canJump: 0
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

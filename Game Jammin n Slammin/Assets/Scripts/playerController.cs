@@ -14,7 +14,6 @@ public class playerController : MonoBehaviour
     public int health;
     public float moveSpeed;
     public float jumpSpeed;
-    public int jumpLeft;
     public Vector2 climbJumpForce;
     public float fallSpeed;
     public float sprintSpeed;
@@ -36,12 +35,14 @@ public class playerController : MonoBehaviour
     // Gameobject extra effects if not animated
 
     private bool _isGrounded;
+    public bool _canJump;
     private bool _isClimb;
     private bool _isSprintable;
     private bool _isSprintReset;
     private bool _isInputEnabled;
     private bool _isFalling;
     private bool _isAttackable;
+    private bool _hasCancledFall;
 
     private float _climbJumpDelay = 0.2f;
     private float _attackEffectLifeTime = 0.05f;
@@ -92,6 +93,31 @@ public class playerController : MonoBehaviour
             fallControl();
             sprintControl();
             attackControl();
+        }
+    }
+
+    private void updatePlayerState()
+    {
+        _isGrounded = checkGrounded();
+        _anim.SetBool("IsGround", _isGrounded);
+
+        float verticalVelocity = _rb.velocity.y;
+        _anim.SetBool("IsDown", verticalVelocity < 0);
+
+        if (_isGrounded && verticalVelocity == 0)
+        {
+            _anim.SetBool("IsJump", false);
+            _anim.ResetTrigger("IsJumpFirst");
+            _anim.SetBool("IsDown", false);
+
+            _canJump = true;
+            _isClimb = false;
+            _isSprintable = true;
+        }
+        else if (_isClimb)
+        {
+            // one remaining jump chance after climbing
+            _canJump = true;
         }
     }
 
@@ -181,31 +207,7 @@ public class playerController : MonoBehaviour
 
     /* ######################################################### */
 
-    private void updatePlayerState()
-    {
-        _isGrounded = checkGrounded();
-        _anim.SetBool("IsGround", _isGrounded);
-
-        float verticalVelocity = _rb.velocity.y;
-        _anim.SetBool("IsDown", verticalVelocity < 0);
-
-        if (_isGrounded && verticalVelocity == 0)
-        {
-            _anim.SetBool("IsJump", false);
-            _anim.ResetTrigger("IsJumpFirst");
-            _anim.ResetTrigger("IsJumpSecond");
-            _anim.SetBool("IsDown", false);
-
-            jumpLeft = 1;
-            _isClimb = false;
-            _isSprintable = true;
-        }
-        else if (_isClimb)
-        {
-            // one remaining jump chance after climbing
-            jumpLeft = 1;
-        }
-    }
+   
 
     private void move()
     {
@@ -266,7 +268,7 @@ public class playerController : MonoBehaviour
 
         if (_isClimb)
             climbJump();
-        else if (jumpLeft > 0)
+        else if (_canJump == true)
             jump();
     }
 
@@ -274,13 +276,27 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetButtonUp("Jump") && !_isClimb)
         {
-            _isFalling = true;
-            fall();
+            if (!_isFalling) 
+            {
+                _isFalling = true;
+                fall();
+            }
+            
         }
         else
         {
-            _isFalling = false;
+           // _isFalling = false;
         }
+    }
+
+    private void fall()
+    {
+
+        Vector2 newVelocity;
+        newVelocity.x = _rb.velocity.x;
+        newVelocity.y = -fallSpeed;
+
+        _rb.velocity = newVelocity;
     }
 
     private void sprintControl()
@@ -377,12 +393,12 @@ public class playerController : MonoBehaviour
         _rb.velocity = newVelocity;
 
         _anim.SetBool("IsJump", true);
-        jumpLeft -= 1;
-        if (jumpLeft == 0)
+        _canJump = false;
+        if (_canJump == false)
         {
             _anim.SetTrigger("IsJumpSecond");
         }
-        else if (jumpLeft == 1)
+        else if (_canJump == true)
         {
             _anim.SetTrigger("IsJumpFirst");
         }
@@ -419,14 +435,7 @@ public class playerController : MonoBehaviour
         transform.localScale = newScale;
     }
 
-    private void fall()
-    {
-        Vector2 newVelocity;
-        newVelocity.x = _rb.velocity.x;
-        newVelocity.y = -fallSpeed;
-
-        _rb.velocity = newVelocity;
-    }
+    
 
     private void sprint()
     {
