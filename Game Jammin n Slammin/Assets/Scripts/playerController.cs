@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour
     public float sprintTime;
     public float sprintInterval;
     public float attackInterval;
+    public float distanceFell;
 
     public Color invulColor;
     public Vector2 hurtRecoil;
@@ -31,6 +32,7 @@ public class playerController : MonoBehaviour
     public Vector2 attackUpRecoil;
     public Vector2 attackForwardRecoil;
     public Vector2 attackDownRecoil;
+    public Vector2 previousPosition;
 
     // Gameobject extra effects if not animated
 
@@ -94,17 +96,21 @@ public class playerController : MonoBehaviour
             sprintControl();
             attackControl();
         }
+        previousPosition = transform.position;
     }
 
+    
     private void updatePlayerState()
     {
+        
         _isGrounded = checkGrounded();
         _anim.SetBool("IsGround", _isGrounded);
 
-        float verticalVelocity = _rb.velocity.y;
-        _anim.SetBool("IsDown", verticalVelocity < 0);
+       // float verticalVelocity = _rb.velocity.y;
+        _anim.SetBool("IsDown", distanceFell < 0);
+        
 
-        if (_isGrounded && verticalVelocity == 0)
+        if (_isGrounded && distanceFell < .001)
         {
             _anim.SetBool("IsJump", false);
             _anim.ResetTrigger("IsJumpFirst");
@@ -355,6 +361,8 @@ public class playerController : MonoBehaviour
 
     private bool checkGrounded()
     {
+         distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
+         print(distanceFell);
         Vector2 origin = _transform.position;
 
         float radius = 0.2f;
