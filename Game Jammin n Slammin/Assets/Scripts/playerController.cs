@@ -29,9 +29,9 @@ public class playerController : MonoBehaviour
     public float deathRecoil;
     public float deathDelay;
 
-    public Vector2 attackUpRecoil;
-    public Vector2 attackForwardRecoil;
-    public Vector2 attackDownRecoil;
+  //  public Vector2 attackUpRecoil;
+   // public Vector2 attackForwardRecoil;
+  //  public Vector2 attackDownRecoil;
     public Vector2 previousPosition;
 
     // Gameobject extra effects if not animated
@@ -43,11 +43,11 @@ public class playerController : MonoBehaviour
     private bool _isSprintReset;
     private bool _isInputEnabled;
     private bool _isFalling;
-    private bool _isAttackable;
-    private bool _hasCancledFall;
+  //  private bool _isAttackable;
+  //  private bool _hasCancledFall;
 
     private float _climbJumpDelay = 0.2f;
-    private float _attackEffectLifeTime = 0.05f;
+  //  private float _attackEffectLifeTime = 0.05f;
 
     private Animator _anim;
     private Rigidbody2D _rb;
@@ -75,7 +75,7 @@ public class playerController : MonoBehaviour
     {
         _isInputEnabled = true;
         _isSprintReset = true;
-        _isAttackable = true;
+      //  _isAttackable = true;
 
         _anim = gameObject.GetComponent<Animator>();
         _rb = gameObject.GetComponent<Rigidbody2D>();
@@ -99,16 +99,16 @@ public class playerController : MonoBehaviour
         previousPosition = transform.position;
     }
 
-    
+
     private void updatePlayerState()
     {
-        
+
         _isGrounded = checkGrounded();
         _anim.SetBool("IsGround", _isGrounded);
 
-       // float verticalVelocity = _rb.velocity.y;
+        // float verticalVelocity = _rb.velocity.y;
         _anim.SetBool("IsDown", distanceFell < 0);
-        
+
 
         if (_isGrounded && distanceFell < .001)
         {
@@ -213,7 +213,7 @@ public class playerController : MonoBehaviour
 
     /* ######################################################### */
 
-   
+
 
     private void move()
     {
@@ -282,16 +282,16 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetButtonUp("Jump") && !_isClimb)
         {
-            if (!_isFalling) 
+            if (!_isFalling)
             {
                 _isFalling = true;
                 fall();
             }
-            
+
         }
         else
         {
-           // _isFalling = false;
+            // _isFalling = false;
         }
     }
 
@@ -313,8 +313,8 @@ public class playerController : MonoBehaviour
 
     private void attackControl()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !_isClimb && _isAttackable)
-            attack();
+    //    if (Input.GetKeyDown(KeyCode.J) && !_isClimb && _isAttackable)
+          //  attack();
     }
 
     private void die()
@@ -333,10 +333,10 @@ public class playerController : MonoBehaviour
         _spriteRend.color = invulColor;
 
         // death recoil
-      //  Vector2 newForce;
-       // newForce.x = -_transform.localScale.x * deathRecoil.x;
-       // newForce.y = deathRecoil.y;
-      //  _rb.AddForce(newForce, ForceMode2D.Impulse);
+        //  Vector2 newForce;
+        // newForce.x = -_transform.localScale.x * deathRecoil.x;
+        // newForce.y = deathRecoil.y;
+        //  _rb.AddForce(newForce, ForceMode2D.Impulse);
 
         StartCoroutine(deathCoroutine());
     }
@@ -361,8 +361,8 @@ public class playerController : MonoBehaviour
 
     private bool checkGrounded()
     {
-         distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
-         print(distanceFell);
+        distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
+        print(distanceFell);
         Vector2 origin = _transform.position;
 
         float radius = 0.2f;
@@ -377,7 +377,7 @@ public class playerController : MonoBehaviour
 
         RaycastHit2D hitRec = Physics2D.CircleCast(origin, radius, direction, distance, layerMask);
         return hitRec.collider != null;
-      
+
     }
     private void OnDrawGizmos()
     {
@@ -402,14 +402,7 @@ public class playerController : MonoBehaviour
 
         _anim.SetBool("IsJump", true);
         _canJump = false;
-        if (_canJump == false)
-        {
-            _anim.SetTrigger("IsJumpSecond");
-        }
-        else if (_canJump == true)
-        {
-            _anim.SetTrigger("IsJumpFirst");
-        }
+
     }
 
     private void climbJump()
@@ -443,7 +436,7 @@ public class playerController : MonoBehaviour
         transform.localScale = newScale;
     }
 
-    
+
 
     private void sprint()
     {
@@ -483,7 +476,9 @@ public class playerController : MonoBehaviour
         _isSprintReset = true;
     }
 
-    private void attack()
+}
+
+  /*  private void attack()
     {
         float verticalDirection = Input.GetAxis("Vertical");
         if (verticalDirection > 0)
