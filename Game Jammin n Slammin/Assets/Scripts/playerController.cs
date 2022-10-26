@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour
     private bool _isSprintable;
     private bool _isSprintReset;
     private bool _isInputEnabled;
-    private bool _isFalling;
+    public bool _isFalling;
   //  private bool _isAttackable;
   //  private bool _hasCancledFall;
 
@@ -90,11 +90,11 @@ public class playerController : MonoBehaviour
         updatePlayerState();
         if (_isInputEnabled)
         {
-            move();
+          //  move();
             jumpControl();
             fallControl();
-            sprintControl();
-            attackControl();
+          //  sprintControl();
+          //  attackControl();
         }
         previousPosition = transform.position;
     }
@@ -107,7 +107,7 @@ public class playerController : MonoBehaviour
         _anim.SetBool("IsGround", _isGrounded);
 
         // float verticalVelocity = _rb.velocity.y;
-        _anim.SetBool("IsDown", distanceFell < 0);
+      //  _anim.SetBool("IsDown", );
 
 
         if (_isGrounded && distanceFell < .001)
@@ -291,7 +291,7 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            // _isFalling = false;
+              // _isFalling = false;
         }
     }
 
@@ -580,143 +580,4 @@ public class playerController : MonoBehaviour
     }
 }
 
-      
-    
-
-
-
-    //Scrap Box DONT DELETE YET
-
-   // private void OnCollisionStay2D(Collision2D collision)
-    //{
-        //  if (collision.gameObject.tag == "Walls" && Input.GetKeyDown(KeyCode.Space))
-        //  {
-        //     
-        //     print("jerry2");
-        //     rb.velocity = Vector2.left * jumpHeight;
-        // }
-  //  }
-
-    
-    /*
-      
-     private void FixedUpdate()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-
-        if (wallJumpTimer > wallTime)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * moveSpeed * canMove, rb.velocity.y);
-        }
-
-
-        if (facingRight == false && moveInput > 0 && canWallJump == false)
-        {
-           // Flip();
-        }
-        else if (facingRight == true && moveInput < 0 && canWallJump == false)
-        {
-           // Flip();
-        }
-        if (canWallJump == true && Input.GetKey(KeyCode.Space))
-        {
-            rb.velocity = new Vector2(wallJumpForce * wallJumpDirection, jumpHeight);
-            //  rb.AddForce(new Vector2(20 * wallJumpDirection, 3));
-            canWallJump = false;
-            canMove = 1;
-            wallJumpTimer = 0;
-        }
-        wallJumpTimer = wallJumpTimer + Time.deltaTime;
-    }  
-
-
-
-     private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-       
-        if (collision.gameObject.tag == "Walls" && isGrounded == false)
-        {
-            
-            canMove = 0;
-            canWallJump = true;
-            rb.velocity = rb.velocity * 0;
-            //Flip();
-
-        }
-    }
-     
-              if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-        {
-            // playerSounds[0].Play();
-            // anim.SetTrigger("takeOff");
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpHeight;
-        }
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector2.up * jumpHeight;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isJumping = false;
-            //playerSounds[1].Play();
-        }
-        if (isGrounded == true)
-        {
-            // anim.SetBool("isJumping", false);
-        }
-        else
-        {
-            //anim.SetBool("isJumping", true);
-        }
-
-
-        if (facingRight == true)
-        {
-            wallJumpDirection = 1;
-        }
-        else
-        {
-            wallJumpDirection = -1;
-        }
-
-
-        if(Input.GetKeyDown("z"))
-        {
-            swordMR.enabled = true;
-            
-        }
-        if(Input.GetKeyUp("z"))
-        {
-            swordMR.enabled = false;
-            
-        }
-      
-      
-     void Flip()
-    {
-        facingRight = !facingRight;
-
-        transform.Rotate(0f, 180, 0f);
-        if(wallJumpTimer > 0) 
-        {
-            wallJumpTimer = 5;
-        }
-    }
-
-     */
-
-
-
+ */
