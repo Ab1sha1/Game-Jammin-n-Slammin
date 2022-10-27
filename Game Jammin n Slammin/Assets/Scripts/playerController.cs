@@ -110,12 +110,12 @@ public class playerController : MonoBehaviour
       //  _anim.SetBool("IsDown", );
 
 
-        if (_isGrounded && distanceFell < .001)
+        if (_isGrounded && distanceFell < .00000001)
         {
             _anim.SetBool("IsJump", false);
             _anim.ResetTrigger("IsJumpFirst");
             _anim.SetBool("IsDown", false);
-
+            print(_canJump + " UPS() Grounded Check");
             _canJump = true;
             _isClimb = false;
             _isSprintable = true;
@@ -123,6 +123,7 @@ public class playerController : MonoBehaviour
         else if (_isClimb)
         {
             // one remaining jump chance after climbing
+            print(_canJump + " Climbing Check");
             _canJump = true;
         }
     }
@@ -271,7 +272,8 @@ public class playerController : MonoBehaviour
     {
         if (!Input.GetButtonDown("Jump"))
             return;
-
+        print(_isClimb + " isClimb State, " + _canJump + " canJump State");
+        
         if (_isClimb)
             climbJump();
         else if (_canJump == true)
@@ -362,7 +364,7 @@ public class playerController : MonoBehaviour
     private bool checkGrounded()
     {
         distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
-        print(distanceFell);
+       // print(distanceFell);
         Vector2 origin = _transform.position;
 
         float radius = 0.2f;
@@ -401,6 +403,7 @@ public class playerController : MonoBehaviour
         _rb.velocity = newVelocity;
 
         _anim.SetBool("IsJump", true);
+        print(_canJump + " Jump()");
         _canJump = false;
 
     }

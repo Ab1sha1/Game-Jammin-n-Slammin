@@ -865,16 +865,16 @@ MonoBehaviour:
   sprintTime: 1
   sprintInterval: 1
   attackInterval: 1
+  distanceFell: 0
   invulColor: {r: 1, g: 1, b: 1, a: 0}
   hurtRecoil: {x: 1, y: 1}
   hurtTime: 1
   hurtRecoverTime: 1
   deathRecoil: 1
   deathDelay: 1
-  attackUpRecoil: {x: 0, y: 0}
-  attackForwardRecoil: {x: 1, y: 1}
-  attackDownRecoil: {x: 0, y: 0}
+  previousPosition: {x: 0, y: 0}
   _canJump: 0
+  _isFalling: 0
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -888,8 +888,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0050246716, y: -0.1149199}
-  m_Size: {x: 1.0134625, y: 1.9894266}
+  m_Offset: {x: 0.021716833, y: -0.1149199}
+  m_Size: {x: 0.83655596, y: 1.9894266}
   m_Direction: 0
 --- !u!70 &780175961
 CapsuleCollider2D:
@@ -904,8 +904,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014636517, y: -0.1204561}
-  m_Size: {x: 0.9310031, y: 2.021599}
+  m_Offset: {x: 0.031449318, y: -0.1204561}
+  m_Size: {x: 0.7664385, y: 2.021599}
   m_Direction: 0
 --- !u!95 &780175962
 Animator:
@@ -2488,8 +2488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1455f6f1922ea4cb372345e1f51aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordrb: {fileID: 0}
-  rbPlayer: {fileID: 780175956}
 --- !u!65 &1095107284
 BoxCollider:
   m_ObjectHideFlags: 0
