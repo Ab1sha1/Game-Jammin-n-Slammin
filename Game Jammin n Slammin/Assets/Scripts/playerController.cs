@@ -110,12 +110,11 @@ public class playerController : MonoBehaviour
       //  _anim.SetBool("IsDown", );
 
 
-        if (_isGrounded && distanceFell < .00000001)
+        if (_isGrounded && _rb.velocity.y == 0)
         {
             _anim.SetBool("IsJump", false);
             _anim.ResetTrigger("IsJumpFirst");
             _anim.SetBool("IsDown", false);
-            print(_canJump + " UPS() Grounded Check");
             _canJump = true;
             _isClimb = false;
             _isSprintable = true;
@@ -123,9 +122,74 @@ public class playerController : MonoBehaviour
         else if (_isClimb)
         {
             // one remaining jump chance after climbing
-            print(_canJump + " Climbing Check");
             _canJump = true;
         }
+    }
+
+    private void jumpControl()
+    {
+        if (!Input.GetButtonDown("Jump"))
+            return;
+
+        if (_isClimb)
+            climbJump();
+        else if (_canJump == true)
+            jump();
+    }
+
+    private void fallControl()
+    {
+        if (Input.GetButtonUp("Jump") && !_isClimb)
+        {
+            if (!_isFalling)
+            {
+                _isFalling = true;
+                fall();
+            }
+
+        }
+        else if(_rb.velocity.y == 0)
+        {
+             _isFalling = false;
+        }
+    }
+
+    private void fall()
+    {
+
+        Vector2 newVelocity;
+        newVelocity.x = _rb.velocity.x;
+        newVelocity.y = -fallSpeed;
+
+        _rb.velocity = newVelocity;
+    }
+
+    private void jump()
+    {
+        Vector2 newVelocity;
+        newVelocity.x = _rb.velocity.x;
+        newVelocity.y = jumpSpeed;
+
+        _rb.velocity = newVelocity;
+
+        _anim.SetBool("IsJump", true);
+      //  print(_canJump + " Jump()");
+        _canJump = false;
+
+    }
+
+    private void climbJump()
+    {
+        Vector2 realClimbJumpForce;
+        realClimbJumpForce.x = climbJumpForce.x * transform.localScale.x;
+        realClimbJumpForce.y = climbJumpForce.y;
+        _rb.AddForce(realClimbJumpForce, ForceMode2D.Impulse);
+
+        _anim.SetTrigger("IsClimbJump");
+        _anim.SetTrigger("IsJumpFirst");
+
+        _isInputEnabled = false;
+        StartCoroutine(climbJumpCoroutine(_climbJumpDelay));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -268,44 +332,7 @@ public class playerController : MonoBehaviour
         }
     }
 
-    private void jumpControl()
-    {
-        if (!Input.GetButtonDown("Jump"))
-            return;
-        print(_isClimb + " isClimb State, " + _canJump + " canJump State");
-        
-        if (_isClimb)
-            climbJump();
-        else if (_canJump == true)
-            jump();
-    }
-
-    private void fallControl()
-    {
-        if (Input.GetButtonUp("Jump") && !_isClimb)
-        {
-            if (!_isFalling)
-            {
-                _isFalling = true;
-                fall();
-            }
-
-        }
-        else
-        {
-              // _isFalling = false;
-        }
-    }
-
-    private void fall()
-    {
-
-        Vector2 newVelocity;
-        newVelocity.x = _rb.velocity.x;
-        newVelocity.y = -fallSpeed;
-
-        _rb.velocity = newVelocity;
-    }
+   
 
     private void sprintControl()
     {
@@ -364,7 +391,6 @@ public class playerController : MonoBehaviour
     private bool checkGrounded()
     {
         distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
-       // print(distanceFell);
         Vector2 origin = _transform.position;
 
         float radius = 0.2f;
@@ -394,33 +420,7 @@ public class playerController : MonoBehaviour
         Gizmos.DrawWireSphere(origin + (direction * distance), radius);
     }
 
-    private void jump()
-    {
-        Vector2 newVelocity;
-        newVelocity.x = _rb.velocity.x;
-        newVelocity.y = jumpSpeed;
-
-        _rb.velocity = newVelocity;
-
-        _anim.SetBool("IsJump", true);
-        print(_canJump + " Jump()");
-        _canJump = false;
-
-    }
-
-    private void climbJump()
-    {
-        Vector2 realClimbJumpForce;
-        realClimbJumpForce.x = climbJumpForce.x * transform.localScale.x;
-        realClimbJumpForce.y = climbJumpForce.y;
-        _rb.AddForce(realClimbJumpForce, ForceMode2D.Impulse);
-
-        _anim.SetTrigger("IsClimbJump");
-        _anim.SetTrigger("IsJumpFirst");
-
-        _isInputEnabled = false;
-        StartCoroutine(climbJumpCoroutine(_climbJumpDelay));
-    }
+    
 
     private IEnumerator climbJumpCoroutine(float delay)
     {
