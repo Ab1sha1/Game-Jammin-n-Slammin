@@ -87,10 +87,12 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        print(_rb.velocity.y);
+
         updatePlayerState();
         if (_isInputEnabled)
         {
-          //  move();
+            move();
             jumpControl();
             fallControl();
           //  sprintControl();
@@ -212,6 +214,57 @@ public class playerController : MonoBehaviour
         }
     }
 
+    private void move()
+    {
+        // calculate movement
+        float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed;
+
+        // set velocity
+        Vector2 newVelocity;
+        newVelocity.x = horizontalMovement;
+        newVelocity.y = _rb.velocity.y;
+        _rb.velocity = newVelocity;
+
+        if (!_isClimb)
+        {
+            // the sprite itself is NOT inversed 
+            float moveDirection = transform.localScale.x * horizontalMovement;
+
+            if (moveDirection < 0)
+            {
+                // flip player sprite
+                Vector3 newScale;
+                newScale.x = horizontalMovement < 0 ? -1 : 1;
+                newScale.y = 1;
+                newScale.z = 1;
+
+                transform.localScale = newScale;
+
+                if (_isGrounded)
+                {
+                    // turn back animation
+                    _anim.SetTrigger("IsRotate");
+                }
+            }
+            else if (moveDirection > 0)
+            {
+                // move forward
+                _anim.SetBool("IsRun", true);
+            }
+        }
+
+        // stop
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            _anim.SetTrigger("stopTrigger");
+            _anim.ResetTrigger("IsRotate");
+            _anim.SetBool("IsRun", false);
+        }
+        else
+        {
+            _anim.ResetTrigger("stopTrigger");
+        }
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Walls" && _isFalling && !_isClimb)
@@ -280,57 +333,7 @@ public class playerController : MonoBehaviour
 
 
 
-    private void move()
-    {
-        // calculate movement
-        float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed;
-
-        // set velocity
-        Vector2 newVelocity;
-        newVelocity.x = horizontalMovement;
-        newVelocity.y = _rb.velocity.y;
-        _rb.velocity = newVelocity;
-
-        if (!_isClimb)
-        {
-            // the sprite itself is NOT inversed 
-            float moveDirection = transform.localScale.x * horizontalMovement;
-
-            if (moveDirection < 0)
-            {
-                // flip player sprite
-                Vector3 newScale;
-                newScale.x = horizontalMovement < 0 ? -1 : 1;
-                newScale.y = 1;
-                newScale.z = 1;
-
-                transform.localScale = newScale;
-
-                if (_isGrounded)
-                {
-                    // turn back animation
-                    _anim.SetTrigger("IsRotate");
-                }
-            }
-            else if (moveDirection > 0)
-            {
-                // move forward
-                _anim.SetBool("IsRun", true);
-            }
-        }
-
-        // stop
-        if (Input.GetAxis("Horizontal") == 0)
-        {
-            _anim.SetTrigger("stopTrigger");
-            _anim.ResetTrigger("IsRotate");
-            _anim.SetBool("IsRun", false);
-        }
-        else
-        {
-            _anim.ResetTrigger("stopTrigger");
-        }
-    }
+   
 
    
 
