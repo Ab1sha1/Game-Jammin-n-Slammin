@@ -141,7 +141,7 @@ public class playerController : MonoBehaviour
 
     private void fallControl()
     {
-        if (Input.GetButtonUp("Jump") && !_isClimb)
+        if (Input.GetButtonUp("Jump") && !_isClimb && _rb.velocity.y > -0.99)
         {
             if (!_isFalling)
             {
@@ -218,6 +218,8 @@ public class playerController : MonoBehaviour
     {
         // calculate movement
         float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed;
+
+        
 
         // set velocity
         Vector2 newVelocity;
