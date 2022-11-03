@@ -32,7 +32,7 @@ public class playerController : MonoBehaviour
   //  public Vector2 attackUpRecoil;
    // public Vector2 attackForwardRecoil;
   //  public Vector2 attackDownRecoil;
-    public Vector2 previousPosition;
+
 
     // Gameobject extra effects if not animated
 
@@ -69,10 +69,12 @@ public class playerController : MonoBehaviour
 
     // public AudioSource[] playerSounds;
 
-
+    Vector3 oldPosition;
+    public float verticalVelocity;
 
     void Start()
     {
+        oldPosition = transform.position;
         _isInputEnabled = true;
         _isSprintReset = true;
       //  _isAttackable = true;
@@ -87,7 +89,13 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        print(_rb.velocity.y);
+        Vector3 velocity = transform.position - oldPosition;
+        verticalVelocity = velocity.y / Time.deltaTime;
+        verticalVelocity = Mathf.Abs(verticalVelocity);
+        oldPosition = transform.position;
+        print(verticalVelocity);
+        
+       // Debug.Log(currentSpeed);
 
         updatePlayerState();
         if (_isInputEnabled)
@@ -98,7 +106,7 @@ public class playerController : MonoBehaviour
           //  sprintControl();
           //  attackControl();
         }
-        previousPosition = transform.position;
+       
     }
 
 
@@ -112,7 +120,7 @@ public class playerController : MonoBehaviour
       //  _anim.SetBool("IsDown", );
 
 
-        if (_isGrounded && _rb.velocity.y == 0)
+        if (_isGrounded)
         {
             _anim.SetBool("IsJump", false);
             _anim.ResetTrigger("IsJumpFirst");
@@ -395,7 +403,7 @@ public class playerController : MonoBehaviour
 
     private bool checkGrounded()
     {
-        distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
+      //  distanceFell = MathF.Abs(previousPosition.y - transform.position.y);
         Vector2 origin = _transform.position;
 
         float radius = 0.2f;
