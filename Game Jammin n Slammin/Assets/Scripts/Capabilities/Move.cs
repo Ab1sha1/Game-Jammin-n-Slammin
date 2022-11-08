@@ -30,6 +30,7 @@ namespace Shinjingi
             _desiredVelocity = new Vector2(_direction.x, 0f) * Mathf.Max(_maxSpeed - _ground.Friction, 0f);
         }
 
+
         private void FixedUpdate()
         {
             _onGround = _ground.OnGround;
