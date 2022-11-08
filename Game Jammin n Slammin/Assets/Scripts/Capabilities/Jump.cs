@@ -9,6 +9,7 @@ namespace Shinjingi
         [SerializeField, Range(0, 5)] private int _maxAirJumps = 0;
         [SerializeField, Range(0f, 5f)] private float _downwardMovementMultiplier = 3f;
         [SerializeField, Range(0f, 5f)] private float _upwardMovementMultiplier = 1.7f;
+        [SerializeField, Range(0f, 0.5f)] private float _coyoteTime = 0.2f;
 
         private Controller _controller;
         private Rigidbody2D _body;
@@ -17,6 +18,7 @@ namespace Shinjingi
 
         private int _jumpPhase;
         private float _defaultGravityScale, _jumpSpeed;
+        public float _coyoteTImeCounter;
 
         private bool _desiredJump, _onGround;
 
@@ -45,6 +47,11 @@ namespace Shinjingi
             if (_onGround)
             {
                 _jumpPhase = 0;
+                _coyoteTImeCounter = _coyoteTime;
+            }
+            else 
+            {
+                _coyoteTImeCounter -= Time.deltaTime;
             }
 
             if (_desiredJump)

@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 780175966}
   - component: {fileID: 780175965}
   - component: {fileID: 780175964}
+  - component: {fileID: 780175967}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -989,6 +990,22 @@ MonoBehaviour:
   _maxSpeed: 4
   _maxAcceleration: 35
   _maxAirAcceleration: 20
+--- !u!114 &780175967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780175955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef41b3405fcb6a43a695544a9e43af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpHeight: 3
+  _maxAirJumps: 0
+  _downwardMovementMultiplier: 3
+  _upwardMovementMultiplier: 1.7
 --- !u!1 &879602239
 GameObject:
   m_ObjectHideFlags: 0
