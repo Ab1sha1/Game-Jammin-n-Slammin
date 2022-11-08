@@ -792,11 +792,13 @@ GameObject:
   m_Component:
   - component: {fileID: 780175958}
   - component: {fileID: 780175956}
-  - component: {fileID: 780175959}
   - component: {fileID: 780175961}
   - component: {fileID: 780175960}
   - component: {fileID: 780175962}
   - component: {fileID: 780175963}
+  - component: {fileID: 780175966}
+  - component: {fileID: 780175965}
+  - component: {fileID: 780175964}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -843,37 +845,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &780175959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780175955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf0c86c81967a5f45add6219131bc723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  moveSpeed: 5
-  jumpSpeed: 15
-  climbJumpForce: {x: 5, y: 5}
-  fallSpeed: 0.5
-  sprintSpeed: 1
-  sprintTime: 1
-  sprintInterval: 1
-  attackInterval: 1
-  distanceFell: 0
-  invulColor: {r: 1, g: 1, b: 1, a: 0}
-  hurtRecoil: {x: 1, y: 1}
-  hurtTime: 1
-  hurtRecoverTime: 1
-  deathRecoil: 1
-  deathDelay: 1
-  previousPosition: {x: 0, y: 0}
-  _canJump: 0
-  _isFalling: 0
 --- !u!70 &780175960
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -978,6 +949,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &780175964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780175955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950e911480812c54e9c9a896abbe9832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &780175965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780175955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a5b91e671825e46afb469c26db20c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 5d0c926421c827342a6daa872aac6f4d, type: 2}
+--- !u!114 &780175966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780175955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da86ba6da9a81b1428af023e5ca9173f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 4
+  _maxAcceleration: 35
+  _maxAirAcceleration: 20
 --- !u!1 &879602239
 GameObject:
   m_ObjectHideFlags: 0
