@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shinjingi
+namespace Luke
 {
     [RequireComponent(typeof(Controller))]
     public class Move : MonoBehaviour
@@ -16,6 +16,7 @@ namespace Shinjingi
 
         private float _maxSpeedChange, _acceleration;
         private bool _onGround;
+        private bool _isFacingRight;
 
         private void Awake()
         {
@@ -30,7 +31,6 @@ namespace Shinjingi
             _desiredVelocity = new Vector2(_direction.x, 0f) * Mathf.Max(_maxSpeed - _ground.Friction, 0f);
         }
 
-
         private void FixedUpdate()
         {
             _onGround = _ground.OnGround;
@@ -41,6 +41,23 @@ namespace Shinjingi
             _velocity.x = Mathf.MoveTowards(_velocity.x, _desiredVelocity.x, _maxSpeedChange);
 
             _body.velocity = _velocity;
+
+            if(_isFacingRight == false && _direction.x < 0) 
+            {
+                Flip();
+            }
+            else if(_isFacingRight == true && _direction.x > 0) 
+            {
+                Flip();
+            }
+        }
+
+        private void Flip()
+        {
+            _isFacingRight = !_isFacingRight;
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
         }
     }
 }

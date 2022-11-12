@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shinjingi
+namespace Luke
 {
     [CreateAssetMenu(fileName = "PlayerController", menuName = "InputController/PlayerController")]
     public class PlayerController : InputController
@@ -13,6 +13,11 @@ namespace Shinjingi
         public override float RetrieveMoveInput()
         {
             return Input.GetAxisRaw("Horizontal");
+        }
+
+        public override bool RetrieveWeaponInput()
+        {
+            return Input.GetKeyDown(KeyCode.K);
         }
     }
 }

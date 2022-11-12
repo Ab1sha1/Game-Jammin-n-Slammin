@@ -987,8 +987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da86ba6da9a81b1428af023e5ca9173f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 4
-  _maxAcceleration: 35
+  _maxSpeed: 8
+  _maxAcceleration: 90
   _maxAirAcceleration: 20
 --- !u!114 &780175967
 MonoBehaviour:
@@ -1002,10 +1002,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef41b3405fcb6a43a695544a9e43af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpHeight: 3
+  _jumpHeight: 8
   _maxAirJumps: 0
   _downwardMovementMultiplier: 3
   _upwardMovementMultiplier: 1.7
+  _coyoteTime: 0.2
+  _coyoteTImeCounter: 0
 --- !u!1 &879602239
 GameObject:
   m_ObjectHideFlags: 0

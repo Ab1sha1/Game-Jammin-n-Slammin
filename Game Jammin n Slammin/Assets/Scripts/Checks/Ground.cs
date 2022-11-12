@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shinjingi
+namespace Luke
 {
     public class Ground : MonoBehaviour
     {

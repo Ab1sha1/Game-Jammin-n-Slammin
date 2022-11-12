@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shinjingi
+namespace Luke
 {
     [RequireComponent(typeof(Controller))]
     public class Jump : MonoBehaviour
