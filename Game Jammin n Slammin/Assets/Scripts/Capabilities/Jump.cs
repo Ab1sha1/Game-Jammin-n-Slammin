@@ -20,7 +20,10 @@ namespace Luke
         private float _defaultGravityScale, _jumpSpeed;
         public float _coyoteTImeCounter;
 
-        private bool _desiredJump, _onGround;
+        public float jumpBufferTimer;
+        public float jumpBuffer;
+
+        public bool _desiredJump, _onGround;
 
 
         // Start is called before the first frame update
@@ -41,6 +44,11 @@ namespace Luke
 
         private void FixedUpdate()
         {
+            if(jumpBufferTimer != 0f) 
+            {
+                jumpBufferTimer -= Time.deltaTime;
+            }
+
             _onGround = _ground.OnGround;
             _velocity = _body.velocity;
 
@@ -56,6 +64,7 @@ namespace Luke
 
             if (_desiredJump)
             {
+                jumpBufferTimer = jumpBuffer;
                 _desiredJump = false;
                 JumpAction();
             }

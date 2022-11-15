@@ -1008,6 +1008,10 @@ MonoBehaviour:
   _upwardMovementMultiplier: 1.7
   _coyoteTime: 0.2
   _coyoteTImeCounter: 0
+  jumpBufferTimer: 0
+  jumpBuffer: 0.6
+  _desiredJump: 0
+  _onGround: 0
 --- !u!1 &879602239
 GameObject:
   m_ObjectHideFlags: 0
