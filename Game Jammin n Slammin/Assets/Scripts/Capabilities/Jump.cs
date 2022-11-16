@@ -81,6 +81,8 @@ namespace Luke
             {
                 _body.gravityScale = _defaultGravityScale;
             }
+            
+
 
             _body.velocity = _velocity;
         }
@@ -100,7 +102,8 @@ namespace Luke
                 {
                     _jumpSpeed += Mathf.Abs(_body.velocity.y);
                 }
-                _velocity.y += _jumpSpeed;
+                
+                    _velocity.y += _jumpSpeed;
             }
         }
     }
