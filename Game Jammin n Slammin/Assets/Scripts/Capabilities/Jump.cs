@@ -9,7 +9,6 @@ namespace Luke
         [SerializeField, Range(0, 5)] private int _maxAirJumps = 0;
         [SerializeField, Range(0f, 5f)] private float _downwardMovementMultiplier = 3f;
         [SerializeField, Range(0f, 5f)] private float _upwardMovementMultiplier = 1.7f;
-        [SerializeField, Range(0f, 0.5f)] private float _coyoteTime = 0.2f;
 
         private Controller _controller;
         private Rigidbody2D _body;
@@ -18,15 +17,10 @@ namespace Luke
 
         private int _jumpPhase;
         private float _defaultGravityScale, _jumpSpeed;
-        public float _coyoteTImeCounter;
 
-        public float jumpBufferTimer;
-        public float jumpBuffer;
-
-        public bool _desiredJump, _onGround;
+        private bool _desiredJump, _onGround;
 
 
-        // Start is called before the first frame update
         void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
@@ -36,7 +30,6 @@ namespace Luke
             _defaultGravityScale = 1f;
         }
 
-        // Update is called once per frame
         void Update()
         {
             _desiredJump |= _controller.input.RetrieveJumpInput();
@@ -44,36 +37,25 @@ namespace Luke
 
         private void FixedUpdate()
         {
-            if(jumpBufferTimer != 0f) 
-            {
-                jumpBufferTimer -= Time.deltaTime;
-            }
-
             _onGround = _ground.OnGround;
             _velocity = _body.velocity;
 
             if (_onGround)
             {
                 _jumpPhase = 0;
-                _coyoteTImeCounter = _coyoteTime;
-            }
-            else 
-            {
-                _coyoteTImeCounter -= Time.deltaTime;
             }
 
             if (_desiredJump)
             {
-                jumpBufferTimer = jumpBuffer;
                 _desiredJump = false;
                 JumpAction();
             }
 
-            if (_body.velocity.y > 0)
+            if (_controller.input.RetrieveJumpHoldInput() && _body.velocity.y > 0)
             {
                 _body.gravityScale = _upwardMovementMultiplier;
             }
-            else if (_body.velocity.y < 0)
+            else if (!_controller.input.RetrieveJumpHoldInput() || _body.velocity.y < 0)
             {
                 _body.gravityScale = _downwardMovementMultiplier;
             }
@@ -81,8 +63,6 @@ namespace Luke
             {
                 _body.gravityScale = _defaultGravityScale;
             }
-            
-
 
             _body.velocity = _velocity;
         }
@@ -102,8 +82,7 @@ namespace Luke
                 {
                     _jumpSpeed += Mathf.Abs(_body.velocity.y);
                 }
-                
-                    _velocity.y += _jumpSpeed;
+                _velocity.y += _jumpSpeed;
             }
         }
     }

@@ -7,5 +7,6 @@ namespace Luke
         public abstract float RetrieveMoveInput();
         public abstract bool RetrieveJumpInput();
         public abstract bool RetrieveWeaponInput();
+        public abstract bool RetrieveJumpHoldInput();
     }
 }

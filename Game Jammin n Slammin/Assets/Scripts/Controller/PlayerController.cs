@@ -19,5 +19,10 @@ namespace Luke
         {
             return Input.GetKeyDown(KeyCode.K);
         }
+
+        public override bool RetrieveJumpHoldInput() 
+        {
+            return Input.GetButton("Jump");
+        }
     }
 }

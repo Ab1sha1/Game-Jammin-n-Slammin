@@ -19,5 +19,10 @@ namespace Luke
         {
             return false;
         }
+
+        public override bool RetrieveJumpHoldInput()
+        {
+            return false;
+        }
     }
 }
