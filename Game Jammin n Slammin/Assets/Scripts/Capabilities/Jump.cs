@@ -9,6 +9,7 @@ namespace Luke
         [SerializeField, Range(0, 5)] private int _maxAirJumps = 0;
         [SerializeField, Range(0f, 5f)] private float _downwardMovementMultiplier = 3f;
         [SerializeField, Range(0f, 5f)] private float _upwardMovementMultiplier = 1.7f;
+        [SerializeField, Range(0f, 3f)] private float _CoyoteTime = 0.2f;
 
         private Controller _controller;
         private Rigidbody2D _body;
@@ -16,9 +17,9 @@ namespace Luke
         private Vector2 _velocity;
 
         private int _jumpPhase;
-        private float _defaultGravityScale, _jumpSpeed;
+        private float _defaultGravityScale, _jumpSpeed, _coyoteCounter;
 
-        private bool _desiredJump, _onGround;
+        private bool _desiredJump, _onGround, _isJumping;
 
 
         void Awake()
@@ -40,9 +41,15 @@ namespace Luke
             _onGround = _ground.OnGround;
             _velocity = _body.velocity;
 
-            if (_onGround)
+            if (_onGround && _body.velocity.y == 0)
             {
                 _jumpPhase = 0;
+                _coyoteCounter = _CoyoteTime;
+                _isJumping = false;
+            }
+            else 
+            {
+                _coyoteCounter -= Time.deltaTime;
             }
 
             if (_desiredJump)
@@ -68,10 +75,13 @@ namespace Luke
         }
         private void JumpAction()
         {
-            if (_onGround || _jumpPhase < _maxAirJumps)
+            if (_coyoteCounter > 0f || (_jumpPhase < _maxAirJumps && _isJumping))
             {
-                _jumpPhase += 1;
-
+                if (_isJumping) 
+                {
+                    _jumpPhase += 1;
+                }
+                
                 _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _jumpHeight);
 
                 if (_velocity.y > 0f)
