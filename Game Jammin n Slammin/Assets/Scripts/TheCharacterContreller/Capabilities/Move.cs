@@ -15,8 +15,7 @@ namespace Luke
         private Ground _ground;
 
         private float _maxSpeedChange, _acceleration;
-        private bool _onGround;
-        private bool _isFacingRight;
+        private bool _onGround, _isFacingRight;
 
         private void Awake()
         {
@@ -41,12 +40,11 @@ namespace Luke
             _velocity.x = Mathf.MoveTowards(_velocity.x, _desiredVelocity.x, _maxSpeedChange);
 
             _body.velocity = _velocity;
-
-            if(_isFacingRight == false && _direction.x < 0) 
+            if (_isFacingRight == false && _direction.x < 0)
             {
                 Flip();
             }
-            else if(_isFacingRight == true && _direction.x > 0) 
+            else if (_isFacingRight == true && _direction.x > 0)
             {
                 Flip();
             }
@@ -61,3 +59,6 @@ namespace Luke
         }
     }
 }
+
+
+
