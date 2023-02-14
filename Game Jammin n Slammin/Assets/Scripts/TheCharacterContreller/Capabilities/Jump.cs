@@ -14,7 +14,7 @@ namespace Luke
 
         private Controller _controller;
         private Rigidbody2D _body;
-        private Ground _ground;
+        private CollisionDataRetriever _collisionDataRetriever;
         private Vector2 _velocity;
 
         private int _jumpPhase;
@@ -26,7 +26,7 @@ namespace Luke
         void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
-            _ground = GetComponent<Ground>();
+            _collisionDataRetriever = GetComponent<CollisionDataRetriever>();
             _controller = GetComponent<Controller>();
 
             _defaultGravityScale = 1f;
@@ -39,7 +39,7 @@ namespace Luke
 
         private void FixedUpdate()
         {
-            _onGround = _ground.OnGround;
+            _onGround = _collisionDataRetriever.OnGround;
             _velocity = _body.velocity;
 
             if (_onGround && _body.velocity.y == 0)
