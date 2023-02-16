@@ -12,6 +12,7 @@ namespace Luke
 
         [Header("Wall Slide")]
         [SerializeField] [Range(0.1f, 5f)] private float _wallSlideMaxSpeed = 2f;
+        [SerializeField][Range(0.1f, 5f)] private float _wallSlideInitialSpeed = 0.5f;
         [Header("Wall Jump")]
         [SerializeField] public Vector2 _wallJumpClimb = new Vector2(4f, 12f);
         [SerializeField] public Vector2 _wallJumpBounce = new Vector2(4f, 12f);
@@ -50,9 +51,13 @@ namespace Luke
             #region Wall Slide
             if (_onWall) 
             {
-                if(_velocity.y < -_wallSlideMaxSpeed) 
+                if(_velocity.y < -_wallSlideInitialSpeed) 
                 {
-                    _velocity.y = -_wallSlideMaxSpeed;
+                    _velocity.y = -_wallSlideInitialSpeed;
+                }
+                else if(_velocity.y == _wallSlideInitialSpeed) 
+                {
+                    
                 }
             }
             #endregion
