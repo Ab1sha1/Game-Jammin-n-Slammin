@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace Luke
@@ -33,6 +34,9 @@ namespace Luke
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                { }
+
             if (Input.GetMouseButtonDown(0) && _weaponIndex == 0) 
             {
                 SwordAttack();
