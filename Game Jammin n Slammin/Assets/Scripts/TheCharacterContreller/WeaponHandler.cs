@@ -12,7 +12,7 @@ namespace Luke
         private Rigidbody2D _body;
         private Animator _anim;
 
-        private int _weaponIndex;
+        public int _weaponIndex;
 
         public LayerMask enemyLayers;
 
@@ -35,7 +35,9 @@ namespace Luke
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
-                { }
+            {
+            
+            }
 
             if (Input.GetMouseButtonDown(0) && _weaponIndex == 0) 
             {
@@ -53,6 +55,7 @@ namespace Luke
             foreach(Collider2D enemy in hitEnemies) 
             {
                 Debug.Log("We Hit " + enemy.name);
+                enemy.GetComponent<EnemyStats>().Health -= swordDamage;
             }
             //Grab the normal of the surface and bounce off it otherwise
         }
