@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class TurnipFighter : MonoBehaviour
 {
-    public EnemyStats enemyStats;
+    EnemyStats enemyStats;
 
+    private void Start()
+    {
+        enemyStats = GetComponent<EnemyStats>();
+    }
     void Update()
     {
         if(enemyStats.Health == 0) 
@@ -16,6 +20,7 @@ public class TurnipFighter : MonoBehaviour
 
     void Die() 
     {
+        //play death animation
         Destroy(gameObject);
     }
 }

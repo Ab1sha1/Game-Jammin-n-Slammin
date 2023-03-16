@@ -49,6 +49,7 @@ namespace Luke
         void SwordAttack() 
         {
             //Play animation
+            _anim.SetTrigger("IsAttack");
             //Run Hit Check
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordPoint.position, swordRange, enemyLayers);
             //Grab the Enemies' Health and subtract damage if enemy
